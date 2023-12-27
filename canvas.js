@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createColorPalette(colors);
     initColorPicker();
     setupResetButton();
+    setupSaveButton();
     setupGridSizeButton();
 });
 
@@ -83,6 +84,50 @@ function setupResetButton() {
     resetButton.addEventListener('click', resetCanvas);
 }
 
+// Function to reset the canvas to its initial state
+function resetCanvas() {
+    const pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        pixel.style.backgroundColor = '#eee';
+    });
+}
+
+// Function to setup the save button functionality
+function setupSaveButton() {
+    const saveButton =  document.getElementById('saveButton');
+    saveButton.addEventListener('click', saveDrawing);
+}
+
+// Function to save the drawing
+function saveDrawing() {
+    const canvas = document.getElementById('pixelCanvas');
+    const pixelSize = 50; // Size of each pixel in the output image
+    const gridSize = canvas.children.length ** 0.5;
+
+    // Create a temporary canvas to draw the pixel art for saving
+    let tempCanvas = document.createElement('canvas');
+    let tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = gridSize * pixelSize;
+    tempCanvas.height = gridSize * pixelSize;
+
+    // Draw each pixel on the temporary canvas
+    Array.from(canvas.children).forEach((div, index) => {
+        tempCtx.fillStyle = div.style.backgroundColor || "#FFFFFF";
+        let x = (index % gridSize) * pixelSize;
+        let y = Math.floor(index / gridSize) * pixelSize;
+        tempCtx.fillRect(x, y, pixelSize, pixelSize);
+    });
+
+    // Create a data URL and download the image
+    let image = tempCanvas.toDataURL("image/png");
+    let link = document.createElement('a');
+    link.download = 'pixel-art.png';
+    link.href = image;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link); 
+}
+
 // Function to setup the grid size input button functionality
 function setupGridSizeButton() {
     const gridSizeButton = document.getElementById('gridSizeButton');
@@ -96,10 +141,3 @@ function setupGridSizeButton() {
     });
 }
 
-// Function to reset the canvas to its initial state
-function resetCanvas() {
-    const pixels = document.querySelectorAll('.pixel');
-    pixels.forEach(pixel => {
-        pixel.style.backgroundColor = '#eee';
-    });
-}
