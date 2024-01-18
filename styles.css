@@ -10,6 +10,10 @@ body {
     text-align: center;
 }
 
+.title {
+    padding-top: 5px;
+}
+
 .container {
     position: relative;
     display: flex;
@@ -85,10 +89,21 @@ label[for="colorPicker"] {
     outline: none; 
 }
 
-#resetButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.color-picker-label, .grid-size-label {
+    margin-right: 5px; 
+}
+
+.reset-button {
+    align-self: flex-end;
+    margin-top: 20px;
 }
 
 /* Adjustments for smaller screens */
@@ -118,6 +133,14 @@ label[for="colorPicker"] {
     .container {
         flex-direction: column; /* Stack elements vertically */
         align-items: center; /* Center-align the child elements */
+    }
+
+    .controls {
+        flex-direction: column; /* Stack the controls vertically on smaller screens */
+    }
+
+    .color-picker-label, .grid-size-label {
+        margin: 0 0 5px 0; /* Adjust margin for labels when stacked */
     }
 }
 
