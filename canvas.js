@@ -1,6 +1,7 @@
-// Define selected color and dragging state
+// Define selected color, dragging and erasing flags initial state
 let selectedColor = 'black';
 let isDragging = false;
+let isErasing = false;
 
 // Event listener when DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createColorPalette(colors);
     initColorPicker();
     setupResetButton();
+    setupEraserButton();
     setupSaveButton();
     setupGridSizeButton();
 });
@@ -42,7 +44,11 @@ function createPixelCanvas(size) {
 
 // Function to handle the coloring of a pixel
 function colorPixel() {
-    this.style.backgroundColor = selectedColor;
+    if (isErasing) {
+        this.style.backgroundColor = '#eee';
+    } else {
+        this.style.backgroundColor = selectedColor;
+    }
 }
 
 // Function to handle coloring while dragging
@@ -51,6 +57,7 @@ function colorPixelOnDrag() {
         colorPixel.call(this);
     }
 }
+
 // Function to create the color selection palette
 function createColorPalette(colors) {
     const palette = document.getElementById('colorPalette');
@@ -72,9 +79,31 @@ function initColorPicker() {
         setSelectedColor(this.value);
     });
 }
+
 // Function to set the currently selected color
 function setSelectedColor(color) {
     selectedColor =  color;
+}
+
+// Function to setup the eraser button functionality
+function setupEraserButton() {
+    const eraserButton = document.getElementById('eraserButton');
+    eraserButton.addEventListener('click', toggleEraser);
+}
+
+// Function to toggle the eraser mode on and off
+function toggleEraser() {
+    // If eraser mode is on, turn it off and change the button appearance back
+    if (isErasing) {
+        isErasing = false;
+        this.textContent = 'Eraser';
+        this.classList.remove('eraserActive');
+    } else {
+        // If eraser mode is off, turn it on and update the button appearance
+        isErasing = true;
+        this.textContent = 'Paint';
+        this.classList.add('eraserActive');  
+    }
 }
 
 // Function to setup the reset button functionality
@@ -140,4 +169,3 @@ function setupGridSizeButton() {
         }
     });
 }
-
