@@ -21,6 +21,7 @@ git clone https://github.com/yourusername/retro-pixel-art-creator.git
 Open the `index.html` file in your web browser to start creating your pixel art!
 
 ## Usage
+
 1. **Select a Color**: Click on a color in the palette or use the custom color picker for more options.
 2. **Paint Pixels**: Click on the pixels in the grid to fill them with the selected color.
 3. **Drag to Paint**: Click and hold the left mouse button, then drag over the pixels to color them.
@@ -28,12 +29,14 @@ Open the `index.html` file in your web browser to start creating your pixel art!
 5. **Save Your Art**: Click "Save Drawing" to download your pixel art as a PNG image.
 
 ## Built With
+
 - HTML
 - CSS
 - Javascript
 
 ## Contact
+
 Feel free to contact me if you have any questions, ideas, or concerns.
 
-- **Email**: alfredomg4000@gmail.com
+- **Email**: <alfredomg4000@gmail.com>
 - **GitHub**: @Alfredomg7
